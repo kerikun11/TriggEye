@@ -33,9 +33,8 @@ openface=OpenFace_*.*.*_win_*/FeatureExtraction.exe
 test -x $openface ||
 openface=OpenFace-OpenFace_*.*.*/build/bin/FeatureExtraction
 
-dir=$PWD
-pushd $(dirname $openface)
-./$(basename $openface) \
+dir=.
+FeatureExtraction \
     -device $device \
     -cam_width $width \
     -cam_height $height \
@@ -43,7 +42,6 @@ pushd $(dirname $openface)
     -3Dfp \
     -of $csv \
     -out_dir $dir &
-popd
 
 tail -f $csv |
 python3 detect.py $interval $margin |
